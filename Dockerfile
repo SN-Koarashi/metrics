@@ -22,6 +22,8 @@ COPY --from=pkgxdev/pkgx:latest /usr/local/bin/pkgx /usr/local/bin/pkgx
 COPY --chmod=+x <<'EOF' /usr/local/bin/licensed
 #!/usr/bin/env -S pkgx --shebang --quiet +github.com/licensee/licensed@5 -- licensed
 EOF
+
+RUN ls -l /usr/local/bin && cat /usr/local/bin/licensed
 RUN licensed --version
 
 # Environment variables
