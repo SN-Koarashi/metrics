@@ -18,9 +18,9 @@ COPY --from=denoland/deno:bin /deno /usr/local/bin/deno
 
 # Install licensed through pkgx
 # TODO: pin major pkgx version
-COPY --from=pkgxdev/pkgx:busybox /usr/local/bin/pkgx /usr/local/bin/pkgx
-COPY --chmod=+x <<EOF /usr/local/bin/licensed
-#!/usr/bin/env -S pkgx --shebang --quiet +github.com/licensee/licensed@main -- licensed
+COPY --from=pkgxdev/pkgx:latest /usr/local/bin/pkgx /usr/local/bin/pkgx
+COPY --chmod=+x <<'EOF' /usr/local/bin/licensed
+#!/usr/bin/env -S pkgx --shebang --quiet +github.com/licensee/licensed@5 -- licensed
 EOF
 RUN licensed --version
 
