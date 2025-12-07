@@ -16,17 +16,6 @@ RUN set -x \
 # TODO: pin major deno version
 COPY --from=denoland/deno:bin /deno /usr/local/bin/deno
 
-# Install licensed through pkgx
-# TODO: pin major pkgx version
-COPY --from=pkgxdev/pkgx:latest /usr/local/bin/pkgx /usr/local/bin/pkgx
-
-COPY --chmod=755 <<'EOF' /usr/local/bin/licensed
-#!/bin/sh
-exec pkgx +github.com/licensee/licensed@5 -- licensed "$@"
-EOF
-
-RUN pkgx +github.com/licensee/licensed@5 licensed --version
-
 # Environment variables
 ENV PUPPETEER_SKIP_DOWNLOAD="true"
 ENV PUPPETEER_EXECUTABLE_PATH="/usr/bin/google-chrome-stable"
