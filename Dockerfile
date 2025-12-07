@@ -20,7 +20,7 @@ COPY --from=denoland/deno:bin /deno /usr/local/bin/deno
 # TODO: pin major pkgx version
 COPY --from=pkgxdev/pkgx:busybox /usr/local/bin/pkgx /usr/local/bin/pkgx
 COPY --chmod=+x <<EOF /usr/local/bin/licensed
-#!/usr/bin/env -S pkgx --shebang --quiet +github.com/licensee/licensed@5 -- licensed
+#!/usr/bin/env -S pkgx --shebang --quiet +github.com/licensee/licensed@main -- licensed
 EOF
 RUN licensed --version
 
