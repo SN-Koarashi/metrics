@@ -19,12 +19,13 @@ COPY --from=denoland/deno:bin /deno /usr/local/bin/deno
 # Install licensed through pkgx
 # TODO: pin major pkgx version
 COPY --from=pkgxdev/pkgx:latest /usr/local/bin/pkgx /usr/local/bin/pkgx
-COPY --chmod=+x <<'EOF' /usr/local/bin/licensed
-#!/usr/bin/env -S pkgx --shebang --quiet +github.com/licensee/licensed@5 -- licensed
+
+COPY --chmod=755 <<'EOF' /usr/local/bin/licensed
+#!/bin/sh
+exec pkgx +github.com/licensee/licensed@5 -- licensed "$@"
 EOF
 
-RUN ls -l /usr/local/bin && cat /usr/local/bin/licensed
-RUN licensed --version
+RUN pkgx +github.com/licensee/licensed@5 licensed --version
 
 # Environment variables
 ENV PUPPETEER_SKIP_DOWNLOAD="true"
